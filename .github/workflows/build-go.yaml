@@ -1,12 +1,19 @@
-name: Build & Test Go
+name: Build & Test
 on:
   push:
     branches:
       - '!main'
+  pull_request:
+    branches:
+      - main
+    types: [closed]
 jobs:
-  build:
-    name: Build & Test Go
+  build-backend:
+    name: Build & Test Go Backend
     runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: backend
     steps:
       - name: Set up Go 1.13
         uses: actions/setup-go@v1
@@ -17,11 +24,11 @@ jobs:
       - name: Install dependencies
         run: |
           go version
-          (cd backend && go mod tidy)
+         go mod tidy
       - name: Build
-        run: (cd backend && go build .)
+        run: go build .
       - name: Test
-        run: (cd backend && go test -v .)
+        run: go test -v .
       - name: Cache Go modules
         uses: actions/cache@preview
         with:
@@ -31,3 +38,28 @@ jobs:
             ${{ runner.OS }}-build-${{ env.cache-name }}-
             ${{ runner.OS }}-build-
             ${{ runner.OS }}-
+
+  build-deploy:
+    name: Validate Deploy Code
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: deploy
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+      - uses: hashicorp/setup-terraform@v1
+      - name: Terraform Format
+        id: fmt
+        run: terraform fmt -check
+        continue-on-error: false
+      - name: Terraform Validate
+        id: validate
+        run: terraform validate -no-color
+  release-version:
+    if: github.event_name == 'pull_request' && github.event.pull_request.merged == 'true'
+    name: Create a release
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
