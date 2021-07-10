@@ -1,5 +1,8 @@
 name: Build & Test Go
-on: [push, pull_request]
+on:
+  push:
+    branches:
+      - '!main'
 jobs:
   build:
     name: Build & Test Go
