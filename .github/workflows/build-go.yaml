@@ -1,11 +1,8 @@
 name: Build & Test Go
-on:
-  push:
-    paths:
-      - 'backend'
+on: [push, pull_request]
 jobs:
   build:
-    name: Build
+    name: Build & Test Go
     runs-on: ubuntu-latest
     steps:
       - name: Set up Go 1.13
