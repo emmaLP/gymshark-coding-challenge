@@ -22,9 +22,7 @@ jobs:
       - name: Check out source code
         uses: actions/checkout@v1
       - name: Install dependencies
-        run: |
-          go version
-          go mod tidy
+        run: go mod tidy
       - name: Build
         run: go build .
       - name: Test
