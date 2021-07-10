@@ -16,8 +16,8 @@ jobs:
           go version
           (cd backend && go mod tidy)
       - name: Build
-        env:
-          GOPROXY: "https://proxy.golang.org"
+#        env:
+#          GOPROXY: "https://proxy.golang.org"
         run: go build backend/
 
       - name: Test
