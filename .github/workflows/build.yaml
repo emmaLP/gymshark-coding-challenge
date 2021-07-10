@@ -14,7 +14,7 @@ jobs:
       - name: Install dependencies
         run: |
           go version
-          go mod tidy
+          (cd backend && go mod tidy)
       - name: Build
         env:
           GOPROXY: "https://proxy.golang.org"
