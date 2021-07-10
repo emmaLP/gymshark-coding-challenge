@@ -2,10 +2,10 @@ package main
 
 import (
 	"fmt"
+	"github.com/stretchr/testify/assert"
 	"reflect"
 	"testing"
 )
-import "github.com/stretchr/testify/assert"
 
 var packs = []int{250, 500, 1000, 5000, 2000}
 
