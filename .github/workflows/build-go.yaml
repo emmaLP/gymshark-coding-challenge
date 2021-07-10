@@ -24,7 +24,7 @@ jobs:
       - name: Install dependencies
         run: |
           go version
-         go mod tidy
+          go mod tidy
       - name: Build
         run: go build .
       - name: Test
