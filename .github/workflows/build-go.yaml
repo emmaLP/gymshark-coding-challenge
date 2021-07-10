@@ -1,5 +1,8 @@
-name: Build & Test
-on: [push, pull_request]
+name: Build & Test Go
+on:
+  push:
+    paths:
+      - 'backend'
 jobs:
   build:
     name: Build
