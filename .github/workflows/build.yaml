@@ -18,9 +18,9 @@ jobs:
       - name: Build
 #        env:
 #          GOPROXY: "https://proxy.golang.org"
-        run: go build backend/
+        run: (cd backend && go build .)
 
       - name: Test
         env:
           GOPROXY: "https://proxy.golang.org"
-        run: go test -v backend/
+        run: (cd backend && go test -v .)
