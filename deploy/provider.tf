@@ -5,25 +5,6 @@ terraform {
       source  = "hashicorp/aws"
       version = "~> 3.0"
     }
-    acme = {
-      source = "vancluever/acme"
-    }
-    kubernetes = {
-      source  = "hashicorp/kubernetes"
-      version = "~>2.0"
-    }
-    helm = {
-      source  = "hashicorp/helm"
-      version = "~> 2"
-    }
-    kustomization = {
-      source  = "kbst/kustomization"
-      version = "0.3.0"
-    }
-    random = {
-      source  = "hashicorp/random"
-      version = "~> 3.0"
-    }
     archive = {
       source  = "hashicorp/archive"
       version = "~> 2"
