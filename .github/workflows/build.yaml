@@ -58,6 +58,7 @@ jobs:
         run: terraform validate -no-color
   release-version:
     if: github.event_name == 'pull_request' && github.event.pull_request.merged == 'true'
+    needs: [build-backend, build-deploy]
     name: Create a release
     runs-on: ubuntu-latest
     steps:
