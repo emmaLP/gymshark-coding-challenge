@@ -1,6 +1,7 @@
 package main
 
 import (
+	b64 "encoding/base64"
 	"encoding/json"
 	"fmt"
 	"github.com/aws/aws-lambda-go/events"
@@ -25,8 +26,14 @@ func Handler(request events.APIGatewayProxyRequest) (events.APIGatewayProxyRespo
 		"Access-Control-Allow-Headers": "Content-Type,X-Amz-Date,Authorization,X-Api-Key,X-Amz-Security-Token",
 		"Access-Control-Allow-Methods": "GET, POST, OPTIONS",
 	}
+	requestBody := []byte(request.Body)
+	if request.IsBase64Encoded {
+		fmt.Println("Request is base64 encoded, decoding body")
+		requestBody, _ = b64.StdEncoding.DecodeString(request.Body)
+	}
+	_ = json.Unmarshal(requestBody, data)
 
-	_ = json.Unmarshal([]byte(request.Body), data)
+	fmt.Println("Data", data)
 	if data.ItemsOrdered < 1 {
 		return events.APIGatewayProxyResponse{
 			StatusCode: http.StatusBadRequest,
