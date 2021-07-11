@@ -73,6 +73,10 @@ jobs:
       - name: Package Artefact
         working-directory: backend
         run: GOOS=linux GOARCH=amd64 go build -o main
+      - name: Create Tag
+        uses: mathieudutour/github-tag-action@v5.5
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
       - name: Create Release
         uses: "marvinpinto/action-automatic-releases@latest"
         with:
