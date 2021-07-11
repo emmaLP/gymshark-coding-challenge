@@ -30,7 +30,7 @@ else
     aws dynamodb create-table --table-name ${DYNAMODB_TABLE} \
           --attribute-definitions AttributeName=LockID,AttributeType=S \
           --key-schema AttributeName=LockID,KeyType=HASH \
-          --provisioned-throughput ReadCapacityUnits=20,WriteCapacityUnits=20 --region $REGION  ${PROFILE_INFO}
+          --provisioned-throughput ReadCapacityUnits=20,WriteCapacityUnits=20 --region $REGION  ${PROFILE_INFO} --output text --query 'TableDescription.TableName'
 
     sleep 25
     STATUS=$(aws dynamodb describe-table --table-name ${DYNAMODB_TABLE} --output text --query 'Table.TableStatus' --region $REGION  ${PROFILE_INFO})
