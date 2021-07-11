@@ -73,8 +73,16 @@ jobs:
       - name: Package Artefact
         working-directory: backend
         run: GOOS=linux GOARCH=amd64 go build -o main
-      - name: Publish Artefact
-        uses: actions/upload-artifact@v2
+      - name: Create Release
+        uses: "marvinpinto/action-automatic-releases@latest"
         with:
-          name: "main"
-          path: "backend/main"
+          repo_token: "${{ secrets.GITHUB_TOKEN }}"
+          automatice_release_tag: "latest"
+          prerelease: false
+          files: |
+            backend/main
+#      - name: Publish Artefact
+#        uses: actions/upload-artifact@v2
+#        with:
+#          name: "main"
+#          path: "backend/main"
