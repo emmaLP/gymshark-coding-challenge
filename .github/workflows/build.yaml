@@ -15,10 +15,6 @@ jobs:
       run:
         working-directory: backend
     steps:
-      - name: Dump context
-        env:
-          GITHUB_CONTEXT: ${{ toJson(github) }}
-        run: echo "$GITHUB_CONTEXT"
       - name: Set up Go 1.13
         uses: actions/setup-go@v1
         with:
@@ -69,7 +65,7 @@ jobs:
         id: validate
         run: terraform validate -no-color
   release-version:
-    if: github.event.pull_request.merged == 'true'
+    if: github.event.pull_request.merged == true
     needs: [build-backend, build-deploy]
     name: Create a release
     runs-on: ubuntu-latest
