@@ -1,10 +1,10 @@
 
 resource "aws_lambda_function" "pack_calc" {
-  depends_on    = [aws_cloudwatch_log_group.pack_calc_lambda]
-  function_name = "gymshark-pack-calc"
-  handler       = "main"
-  role          = aws_iam_role.lambda.arn
-  runtime       = "go1.x"
+  depends_on       = [aws_cloudwatch_log_group.pack_calc_lambda]
+  function_name    = "gymshark-pack-calc"
+  handler          = "main"
+  role             = aws_iam_role.lambda.arn
+  runtime          = "go1.x"
   filename         = data.archive_file.pack_calc.output_path
   source_code_hash = data.archive_file.pack_calc.output_base64sha256
 

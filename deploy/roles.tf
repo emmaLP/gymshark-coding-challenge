@@ -1,5 +1,5 @@
 resource "aws_iam_role" "lambda" {
-  name = "gymshark-pack-calc-lambda"
+  name               = "gymshark-pack-calc-lambda"
   assume_role_policy = <<EOF
 {
   "Version": "2012-10-17",
@@ -18,6 +18,6 @@ EOF
 }
 
 resource "aws_iam_role_policy_attachment" "lambda_execution" {
-  role = aws_iam_role.lambda.name
+  role       = aws_iam_role.lambda.name
   policy_arn = data.aws_iam_policy.lambda_execution.arn
 }
