@@ -27,6 +27,7 @@ jobs:
         run: go build .
       - name: Test
         run: go test -v .
+
       - name: Cache Go modules
         uses: actions/cache@preview
         with:
@@ -36,6 +37,7 @@ jobs:
             ${{ runner.OS }}-build-${{ env.cache-name }}-
             ${{ runner.OS }}-build-
             ${{ runner.OS }}-
+
 
   build-deploy:
     name: Validate Deploy Code
@@ -47,6 +49,8 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v2
       - uses: hashicorp/setup-terraform@v1
+        with:
+          terraform_version: 1.0.2
       - name: Terraform Format
         id: fmt
         run: terraform fmt -check
@@ -61,3 +65,10 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v2
+      - name: Package Artefact
+        run: GOOS=linux GOARCH=amd64 go build -o main
+      - name: Publish Artefact
+        uses: actions/upload-artifact@v2
+        with:
+          name: "main"
+          path: "./main"
