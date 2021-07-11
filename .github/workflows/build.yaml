@@ -43,6 +43,9 @@ jobs:
     defaults:
       run:
         working-directory: deploy
+    env:
+      AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+      AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
     steps:
       - name: Checkout
         uses: actions/checkout@v2
@@ -53,6 +56,9 @@ jobs:
         id: fmt
         run: terraform fmt -check
         continue-on-error: false
+      - name: Terraform Init
+        id: init
+        run: terraform init
       - name: Terraform Validate
         id: validate
         run: terraform validate -no-color
@@ -65,9 +71,10 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v2
       - name: Package Artefact
+        working-directory: backend
         run: GOOS=linux GOARCH=amd64 go build -o main
       - name: Publish Artefact
         uses: actions/upload-artifact@v2
         with:
           name: "main"
-          path: "./main"
+          path: "backend/main"
