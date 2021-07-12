@@ -65,19 +65,6 @@ exports.handler = async (event) => {
                 "isAuthorized": false
             }
         });
-    //
-    // if (event.headers.authorization === "secretToken") {
-    //     response = {
-    //         "isAuthorized": true,
-    //         "context": {
-    //             "stringKey": "value",
-    //             "numberKey": 1,
-    //             "booleanKey": true,
-    //             "arrayKey": ["value1", "value2"],
-    //             "mapKey": {"value1": "value2"}
-    //         }
-    //     };
-    // }
 
     console.log("Response", response)
     return response;
