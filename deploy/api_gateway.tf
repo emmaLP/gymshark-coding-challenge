@@ -11,11 +11,11 @@ resource "aws_apigatewayv2_stage" "default" {
 
 
 resource "aws_apigatewayv2_route" "pack_calc" {
-  api_id    = aws_apigatewayv2_api.pack_calc.id
+  api_id             = aws_apigatewayv2_api.pack_calc.id
   authorization_type = "CUSTOM"
-  authorizer_id = aws_apigatewayv2_authorizer.authoriser.id
-  route_key = "POST /calculate-packs"
-  target    = "integrations/${aws_apigatewayv2_integration.pack_calc.id}"
+  authorizer_id      = aws_apigatewayv2_authorizer.authoriser.id
+  route_key          = "POST /calculate-packs"
+  target             = "integrations/${aws_apigatewayv2_integration.pack_calc.id}"
 }
 
 resource "aws_apigatewayv2_integration" "pack_calc" {
@@ -36,5 +36,5 @@ resource "aws_apigatewayv2_authorizer" "authoriser" {
   authorizer_payload_format_version = "2.0"
   name                              = "gymshark-token-authoriser"
   enable_simple_responses           = true
-  authorizer_result_ttl_in_seconds = 0
+  authorizer_result_ttl_in_seconds  = 0
 }
