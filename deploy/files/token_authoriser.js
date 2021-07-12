@@ -39,21 +39,20 @@ exports.handler = async (event) => {
         }
     };
     let authHeader = event.headers['authorization']
-    console.log("Auth Header", authHeader)
     await getSecret(process.env.SECRET_KEY)
         .then(secret => {
-            if (!authHeader === secret) {
+            if (authHeader === secret) {
                 response = {
-                    "isAuthorized": false,
+                    "isAuthorized": true,
                     "context": {
                         "booleanKey": true,
                     }
                 }
             } else {
                 response = {
-                    "isAuthorized": true,
+                    "isAuthorized": false,
                     "context": {
-                        "booleanKey": true,
+                        "booleanKey": false,
                     }
                 }
             }
