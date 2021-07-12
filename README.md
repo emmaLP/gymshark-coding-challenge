@@ -5,6 +5,7 @@ This is split into the following components:
 | Component | Description |
 | :---: | :---:|
 | Backend | Written in Go 1.16 and will run as an AWS Lambda function. This function can also be called by an API|
+| Deploy | Terraform scripts to deploy the api and go code to AWS cloud|
 
 
 ## Backend
