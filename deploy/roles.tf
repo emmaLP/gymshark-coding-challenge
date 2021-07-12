@@ -21,3 +21,7 @@ resource "aws_iam_role_policy_attachment" "lambda_execution" {
   role       = aws_iam_role.lambda.name
   policy_arn = data.aws_iam_policy.lambda_execution.arn
 }
+resource "aws_iam_role_policy_attachment" "ssm_readonly" {
+  role       = aws_iam_role.lambda.name
+  policy_arn = data.aws_iam_policy.ssm_readonly.arn
+}
